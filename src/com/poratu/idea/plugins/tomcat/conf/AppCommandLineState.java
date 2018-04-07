@@ -38,7 +38,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -110,11 +112,20 @@ public class AppCommandLineState extends JavaCommandLineState {
 
             javaParams.setPassParentEnvs(false);
             javaParams.getVMParametersList().addParametersString(vmOptions);
+            javaParams.setEnv(this.getEnvVars());
             return javaParams;
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+
+    }
+
+    private Map<String, String> getEnvVars() {
+        Map<String, String> map = new HashMap<>();
+        map.put("TEST_ENV", "TEST");
+        return map;
 
 
     }
